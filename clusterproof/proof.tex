@@ -41,56 +41,22 @@ Let $R$ be a TFCE-significant cluster. Then any $h_0$-superthreshold cluster $R'
 \end{theorem}
 
 \begin{proof}
-Let $R$ be a TFCE-significant cluster. By definition, for all $v \in R$ we have $S_v(\mathbf{X}_\mathcal{B}) \geq t^*_\mathcal{B}$.
+Let $R$ be a TFCE-significant cluster. By definition, for all $v \in R$ we have $S_v(\mathbf{X}_\mathcal{B}) \geq t^*_\mathcal{B}$. If $T_v < h_0$, then $v \notin \mathcal{E}(h)$ for all $h \geq h_0$, so $e_v(h) = 0$ and hence $S_v = 0$. Since $t^*_\mathcal{B} > 0$, any TFCE-significant voxel must have $T_v \geq h_0$ and therefore lies in an $h_0$-superthreshold cluster.
 
-\medskip
-\noindent\textbf{Step 1: TFCE-significant voxels lie in $h_0$-superthreshold clusters.}
-
-\medskip
-If $T_v < h_0$, then $v \notin \mathcal{E}(h)$ for all $h \geq h_0$, so $e_v(h) = 0$ and hence $S_v = 0$. Since $t^*_\mathcal{B} > 0$, any TFCE-significant voxel must have $T_v \geq h_0$ and therefore lies in an $h_0$-superthreshold cluster.
-
-\medskip
-\noindent\textbf{Step 2: TFCE statistics are unchanged after masking to $R'$.}
-
-\medskip
-Let $R'$ be any $h_0$-superthreshold cluster containing $R$. For any $v \in R'$ and any $h \geq h_0$, we claim that:
-\[
-e_v(h, \mathbf{X}_{R'}) = e_v(h, \mathbf{X}_\mathcal{B}).
-\]
-
-By Lemma~\ref{lem:cluster_containment}, $C_v(h) \subseteq R'$. Since masking to $R'$ does not affect the cluster $C_v(h)$, we have:
-\[
-e_v(h, \mathbf{X}_{R'}) = |C_v(h)| = e_v(h, \mathbf{X}_\mathcal{B}).
-\]
-
-Consequently, for all $v \in R'$:
+Let $R'$ be any $h_0$-superthreshold cluster containing $R$. For any $v \in R'$ and any $h \geq h_0$, Lemma~\ref{lem:cluster_containment} gives $C_v(h) \subseteq R'$. Since masking to $R'$ does not affect the cluster $C_v(h)$, we have $e_v(h, \mathbf{X}_{R'}) = |C_v(h)| = e_v(h, \mathbf{X}_\mathcal{B})$. Consequently, for all $v \in R'$:
 \[
 S_v(\mathbf{X}_{R'}) = \int_{h_0}^{\infty} f(h) g(e_v(h, \mathbf{X}_{R'})) \, dh = \int_{h_0}^{\infty} f(h) g(e_v(h, \mathbf{X}_\mathcal{B})) \, dh = S_v(\mathbf{X}_\mathcal{B}).
 \]
 
-\medskip
-\noindent\textbf{Step 3: Concluding LCE significance.}
-
-\medskip
-Since $R \subseteq R'$, there exists $v \in R \subseteq R'$ such that:
-\[
-S_v(\mathbf{X}_{R'}) = S_v(\mathbf{X}_\mathcal{B}) \geq t^*_\mathcal{B}.
-\]
-
-Therefore:
-\[
-\max_{v \in R'} S_v(\mathbf{X}_{R'}) \geq t^*_\mathcal{B}.
-\]
-
-By the definition of LCE significance, $R'$ is LCE-significant.
+Since $R \subseteq R'$, there exists $v \in R \subseteq R'$ such that $S_v(\mathbf{X}_{R'}) = S_v(\mathbf{X}_\mathcal{B}) \geq t^*_\mathcal{B}$. Therefore $\max_{v \in R'} S_v(\mathbf{X}_{R'}) \geq t^*_\mathcal{B}$, and by the definition of LCE significance, $R'$ is LCE-significant.
 \end{proof}
 
 \begin{corollary}\label{cor:support}
-For any TFCE-significant cluster $R$, its support (the $h_0$-superthreshold cluster containing $R$) is LCE-significant.
+Given a TFCE-significant cluster $R$, its support (the $h_0$-superthreshold cluster containing $R$) is LCE-significant.
 \end{corollary}
 
 \begin{proof}
-By Step 1, every voxel in $R$ satisfies $T_v \geq h_0$, so $R$ is contained in a unique $h_0$-superthreshold cluster $R'$. The result follows immediately from Theorem~\ref{thm:main}.
+Every voxel in $R$ satisfies $T_v \geq h_0$ (otherwise its TFCE statistic would be zero), so $R$ is contained in a unique $h_0$-superthreshold cluster $R'$. The result follows immediately from Theorem~\ref{thm:main}.
 \end{proof}
 
 \begin{remark}

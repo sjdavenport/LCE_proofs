@@ -15,6 +15,9 @@
 \theoremstyle{remark}
 \newtheorem{remark}{Remark}
 
+\usepackage{xcolor}
+\newcommand{\sdcom}[1]{\textit{\color{red} [SD: #1]}}
+
 \title{Superthreshold Clusters Containing TFCE-Significant Clusters are LCE-Significant}
 \author{}
 \date{}
@@ -23,29 +26,15 @@
 
 \maketitle
 
-\section{Preliminaries}
-
-We work within the framework established in the main paper. Let $\mathcal{B} \subset \mathbb{R}^3$ denote the set of voxels making up the brain, and for each voxel $v \in \mathcal{B}$, let $T_v$ denote the test statistic. The excursion set at threshold $h$ is $\mathcal{E}(h) = \{v \in \mathcal{B} : T_v \geq h\}$.
-
-For the generalized TFCE statistic, we have:
-\[
-S_v = \int_{h_0}^{\infty} f(h) g(e_v(h)) \, dh
-\]
-where $e_v(h) = |C_v(h)|$ is the size of the connected component of $\mathcal{E}(h)$ containing $v$ (or zero if $v \notin \mathcal{E}(h)$). We assume $g$ is non-decreasing with $g(0) = 0$, and $f(h) \geq 0$ for $h \geq h_0$.
-
-\begin{definition}
-An \textbf{$h_0$-superthreshold cluster} is a maximal connected component of the set $\{v \in \mathcal{B} : T_v \geq h_0\}$.
-\end{definition}
-
-\begin{definition}
-A voxel $v$ is \textbf{TFCE-significant} if $S_v(\mathbf{X}_\mathcal{B}) \geq t^*_\mathcal{B}$, where $t^*_\mathcal{B}$ is the permutation-based critical value. A \textbf{TFCE-significant cluster} is a connected set of TFCE-significant voxels.
-\end{definition}
-
-\begin{definition}
-A region $R \subseteq \mathcal{B}$ is \textbf{LCE-significant} if $\max_{v \in R} S_v(\mathbf{X}_R) > t^*_\mathcal{B}$, where $\mathbf{X}_R$ denotes the masked data with voxels outside $R$ set to zero.
-\end{definition}
-
 \section{Main Result}
+
+\begin{lemma}\label{lem:cluster_containment}
+Let $R'$ be an $h_0$-superthreshold cluster for a cluster defing threshold $h_0 \in \mathbb{R}$. Then for any $v \in R'$ and any $h \geq h_0$, the connected component $C_v(h)$ containing $v$ of the excursion set $\mathcal{E}(h) = \{w \in \mathcal{B} : T_w \geq h\}$  satisfies $C_v(h) \subseteq R'$.
+\end{lemma}
+
+\begin{proof}
+Since $R'$ is an $h_0$-superthreshold cluster, all voxels in $\mathcal{B} \setminus R'$ that are neighbors of $R'$ have $T_w < h_0 \leq h$. Therefore, the connected component $C_v(h)$ cannot extend beyond $R'$.
+\end{proof}
 
 \begin{theorem}\label{thm:main}
 Let $R$ be a TFCE-significant cluster. Then any $h_0$-superthreshold cluster $R' \supseteq R$ is LCE-significant.
@@ -58,15 +47,7 @@ Let $R$ be a TFCE-significant cluster. By definition, for all $v \in R$ we have 
 \noindent\textbf{Step 1: TFCE-significant voxels lie in $h_0$-superthreshold clusters.}
 
 \medskip
-By the assumptions on $f$ and $g$, we have $S_v \geq 0$ for all voxels and all permutations, so $t^*_\mathcal{B} > 0$. 
-
-For any voxel $v$ with $T_v < h_0$, we have $e_v(h) = 0$ for all $h \geq h_0$ since $v \notin \mathcal{E}(h)$ when $T_v < h$. Therefore:
-\[
-S_v(\mathbf{X}_\mathcal{B}) = \int_{h_0}^{\infty} f(h) g(e_v(h)) \, dh = \int_{h_0}^{\infty} f(h) g(0) \, dh = 0
-\]
-since $g(0) = 0$. This means $S_v(\mathbf{X}_\mathcal{B}) = 0 < t^*_\mathcal{B}$, so $v$ cannot be TFCE-significant.
-
-By contraposition, every TFCE-significant voxel $v \in R$ must satisfy $T_v \geq h_0$. Since $R$ is connected, there exists an $h_0$-superthreshold cluster $R' \supseteq R$.
+If $T_v < h_0$, then $v \notin \mathcal{E}(h)$ for all $h \geq h_0$, so $e_v(h) = 0$ and hence $S_v = 0$. Since $t^*_\mathcal{B} > 0$, any TFCE-significant voxel must have $T_v \geq h_0$ and therefore lies in an $h_0$-superthreshold cluster.
 
 \medskip
 \noindent\textbf{Step 2: TFCE statistics are unchanged after masking to $R'$.}
@@ -77,13 +58,7 @@ Let $R'$ be any $h_0$-superthreshold cluster containing $R$. For any $v \in R'$ 
 e_v(h, \mathbf{X}_{R'}) = e_v(h, \mathbf{X}_\mathcal{B}).
 \]
 
-To establish this, observe that $C_v(h)$, the connected component of the excursion set $\mathcal{E}(h) = \{w \in \mathcal{B} : T_w \geq h\}$ containing $v$, must satisfy $C_v(h) \subseteq R'$. This follows because:
-\begin{itemize}[leftmargin=2em]
-    \item All voxels in $\mathcal{B} \setminus R'$ that are neighbors of $R'$ have $T_w < h_0 \leq h$ (by the definition of $R'$ being an $h_0$-superthreshold cluster).
-    \item Therefore, the connected component $C_v(h)$ cannot extend beyond $R'$.
-\end{itemize}
-
-Since masking to $R'$ does not affect the cluster $C_v(h)$, we have:
+By Lemma~\ref{lem:cluster_containment}, $C_v(h) \subseteq R'$. Since masking to $R'$ does not affect the cluster $C_v(h)$, we have:
 \[
 e_v(h, \mathbf{X}_{R'}) = |C_v(h)| = e_v(h, \mathbf{X}_\mathcal{B}).
 \]
@@ -108,6 +83,14 @@ Therefore:
 \]
 
 By the definition of LCE significance, $R'$ is LCE-significant.
+\end{proof}
+
+\begin{corollary}\label{cor:support}
+For any TFCE-significant cluster $R$, its support (the $h_0$-superthreshold cluster containing $R$) is LCE-significant.
+\end{corollary}
+
+\begin{proof}
+By Step 1, every voxel in $R$ satisfies $T_v \geq h_0$, so $R$ is contained in a unique $h_0$-superthreshold cluster $R'$. The result follows immediately from Theorem~\ref{thm:main}.
 \end{proof}
 
 \begin{remark}

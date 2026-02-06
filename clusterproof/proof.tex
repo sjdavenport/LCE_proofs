@@ -58,6 +58,21 @@ Given a TFCE-significant cluster $R$, its support $\text{supp}_{h_0}(\mathcal{R}
 The support of $R$ is by definition an $h_0$-super threshold cluster and so the result follows immediately from Theorem~\ref{thm:main}.
 \end{proof}
 
+\begin{corollary}\label{cor:cluster_count}
+For each TFCE-significant cluster, there exists at least one LCE-significant cluster containing it. Consequently, the number of LCE-significant clusters is at least the number of TFCE-significant clusters.
+\end{corollary}
+
+\begin{proof}
+Let $\{R_1, \ldots, R_n\}$ be the collection of TFCE-significant clusters. By Corollary~\ref{cor:support}, each $R_i$ has an LCE-significant support $\text{supp}_{h_0}(R_i)$. Since the $h_0$-superthreshold clusters partition the excursion set $\mathcal{E}(h_0)$, each TFCE-significant cluster $R_i$ is contained in exactly one such cluster. Moreover, distinct TFCE-significant clusters that are not connected at threshold $h_0$ must lie in distinct $h_0$-superthreshold clusters, and hence have distinct LCE-significant supports. Since the collection of LCE-significant clusters includes all such supports (and possibly additional clusters), we have
+\[
+|\{\text{LCE-significant clusters}\}| \geq |\{\text{supp}_{h_0}(R_i) : i = 1, \ldots, n\}| = n.
+\]
+\end{proof}
+
+\begin{remark}[Power Preservation]
+Corollary~\ref{cor:cluster_count} has important practical implications: switching from TFCE to LCE does not sacrifice statistical power. Every significant finding detected by TFCE corresponds to at least one significant finding under LCE. However, LCE provides additional information beyond what TFCE offers---namely, valid $p$-values for individual clusters rather than just voxelwise inference. This means that practitioners can adopt LCE with confidence that they will detect at least as many significant regions as TFCE, while gaining the ability to make proper cluster-level inferences with controlled error rates.
+\end{remark}
+
 \begin{remark}
 The key insight of this proof is that $h_0$-superthreshold clusters act as ``islands'' in the test statistic map: when masking to such a cluster, the TFCE statistics for voxels inside the cluster remain unchanged because the cluster boundaries (where $T_v < h_0$) prevent any information from voxels outside the region from influencing the statistic. This is precisely why the threshold $h_0$ plays such a crucial role in determining the spatial support of valid TFCE inference.
 \end{remark}

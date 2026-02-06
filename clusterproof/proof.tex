@@ -41,9 +41,7 @@ Let $R$ be a TFCE-significant cluster. Then any $h_0$-superthreshold cluster $R'
 \end{theorem}
 
 \begin{proof}
-Let $R$ be a TFCE-significant cluster. By definition, for all $v \in R$ we have $S_v(\mathbf{X}_\mathcal{B}) \geq t^*_\mathcal{B}$. If $T_v < h_0$, then $v \notin \mathcal{E}(h)$ for all $h \geq h_0$, so $e_v(h) = 0$ and hence $S_v = 0$. Since $t^*_\mathcal{B} > 0$, any TFCE-significant voxel must have $T_v \geq h_0$ and therefore lies in an $h_0$-superthreshold cluster.
-
-Let $R'$ be any $h_0$-superthreshold cluster containing $R$. For any $v \in R'$ and any $h \geq h_0$, Lemma~\ref{lem:cluster_containment} gives $C_v(h) \subseteq R'$. Since masking to $R'$ does not affect the cluster $C_v(h)$, we have $e_v(h, \mathbf{X}_{R'}) = |C_v(h)| = e_v(h, \mathbf{X}_\mathcal{B})$. Consequently, for all $v \in R'$:
+Let $R'$ be any $h_0$-superthreshold cluster containing $R$. For any $v \in R'$ and any $h \geq h_0$, Lemma~\ref{lem:cluster_containment} gives $C_v(h) \subseteq R'$. In particular it follows that masking to $R'$ does not affect the cluster $C_v(h)$ and so we have $e_v(h, \mathbf{X}_{R'}) = |C_v(h)| = e_v(h, \mathbf{X}_\mathcal{B})$. Consequently, for all $v \in R'$:
 \[
 S_v(\mathbf{X}_{R'}) = \int_{h_0}^{\infty} f(h) g(e_v(h, \mathbf{X}_{R'})) \, dh = \int_{h_0}^{\infty} f(h) g(e_v(h, \mathbf{X}_\mathcal{B})) \, dh = S_v(\mathbf{X}_\mathcal{B}).
 \]
@@ -51,20 +49,17 @@ S_v(\mathbf{X}_{R'}) = \int_{h_0}^{\infty} f(h) g(e_v(h, \mathbf{X}_{R'})) \, dh
 Since $R \subseteq R'$, there exists $v \in R \subseteq R'$ such that $S_v(\mathbf{X}_{R'}) = S_v(\mathbf{X}_\mathcal{B}) \geq t^*_\mathcal{B}$. Therefore $\max_{v \in R'} S_v(\mathbf{X}_{R'}) \geq t^*_\mathcal{B}$, and by the definition of LCE significance, $R'$ is LCE-significant.
 \end{proof}
 
+For each $v \in R$, we have $S_v(\mathbf{X}_\mathcal{B}) > t^*_{\mathcal{B}}$ > 0. As such every voxel in $R$ satisfies $T_v \geq h_0$ (otherwise its TFCE statistic would be zero), so $R$ is contained in a unique $h_0$-superthreshold cluster $R'$. 
 \begin{corollary}\label{cor:support}
-Given a TFCE-significant cluster $R$, its support (the $h_0$-superthreshold cluster containing $R$) is LCE-significant.
+Given a TFCE-significant cluster $R$, its support $\text{supp}_{h_0}(\mathcal{R})$ is LCE-significant.
 \end{corollary}
 
 \begin{proof}
-Every voxel in $R$ satisfies $T_v \geq h_0$ (otherwise its TFCE statistic would be zero), so $R$ is contained in a unique $h_0$-superthreshold cluster $R'$. The result follows immediately from Theorem~\ref{thm:main}.
+The support of $R$ is by definition an $h_0$-super threshold cluster and so the result follows immediately from Theorem~\ref{thm:main}.
 \end{proof}
 
 \begin{remark}
 The key insight of this proof is that $h_0$-superthreshold clusters act as ``islands'' in the test statistic map: when masking to such a cluster, the TFCE statistics for voxels inside the cluster remain unchanged because the cluster boundaries (where $T_v < h_0$) prevent any information from voxels outside the region from influencing the statistic. This is precisely why the threshold $h_0$ plays such a crucial role in determining the spatial support of valid TFCE inference.
 \end{remark}
-
-\begin{corollary}
-For every TFCE-significant cluster $R$, there exists a unique minimal $h_0$-superthreshold cluster $R' \supseteq R$ that is LCE-significant. This cluster $R'$ is precisely the connected component of $\{v \in \mathcal{B} : T_v \geq h_0\}$ containing $R$.
-\end{corollary}
-
+=
 \end{document}
